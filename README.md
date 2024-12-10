@@ -25,19 +25,19 @@
 
 ## 사용 방법
 
-1. 환경 설정 - bash
+### 1. 환경 설정 - bash
 테스트 환경 구축 (Docker)
 docker build -t ansible-test .
 docker run -d --name tnode1 -p 2222:22 ansible-test
 
-2. Ansible Vault 설정
+### 2. Ansible Vault 설정
 ansible-vault create vault.yml
 ansible-vault encrypt vault.yml
 
-3. 테스트 환경 접속
+### 3. 테스트 환경 접속
 ssh -p 2222 root@localhost
 
-4. 테스트 환경 접속 후 테스트 실행
+### 4. 테스트 환경 접속 후 테스트 실행
 
 ansible-playbook -i hosts.yml install_packages.yml
 
@@ -47,15 +47,15 @@ ansible-playbook -i hosts.yml database.yml
 
 ansible-playbook -i hosts.yml monitoring.yml
 
-전체 구성 실행  
+## 전체 구성 실행  
 
 ansible-playbook -i inventory/hosts site.yml  
 
-특정 역할만 실행  
+## 특정 역할만 실행  
 
 ansible-playbook -i inventory/hosts site.yml --tags base  
 
-서비스 상태 확인  
+## 서비스 상태 확인  
 sudo service nginx status  
 sudo service postgresql status  
 sudo service prometheus status  
