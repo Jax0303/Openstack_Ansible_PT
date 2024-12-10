@@ -1,6 +1,4 @@
 # Ansible Infrastructure Setup
-
-이 프로젝트는 Ansible을 사용한 사내 인프라 자동화 구성입니다.
  
 
 ## 주요 기능
@@ -49,15 +47,18 @@ ansible-playbook -i hosts.yml database.yml
 
 ansible-playbook -i hosts.yml monitoring.yml
 
-전체 구성 실행
-ansible-playbook -i inventory/hosts site.yml
-특정 역할만 실행
-ansible-playbook -i inventory/hosts site.yml --tags base
+전체 구성 실행  
 
-서비스 상태 확인
-sudo service nginx status
-sudo service postgresql status
-sudo service prometheus status
+ansible-playbook -i inventory/hosts site.yml  
+
+특정 역할만 실행  
+
+ansible-playbook -i inventory/hosts site.yml --tags base  
+
+서비스 상태 확인  
+sudo service nginx status  
+sudo service postgresql status  
+sudo service prometheus status  
 
 ## 주의사항
 - 실제 운영 환경에 적용하기 전에 반드시 테스트 환경에서 검증하세요
