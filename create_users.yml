@@ -1,0 +1,23 @@
+---
+- name: Create user accounts
+  hosts: all
+  become: yes
+  vars_files:
+    - vars/secret.yml
+
+  tasks:
+    - name: Create users with password
+      user:
+        name: "{{ item.userid }}"
+        password: "{{ item.userpw | password_hash('sha512') }}"
+        state: present
+        shell: /bin/bash
+        createhome: yes
+      loop: "{{ user_info }}"
+
+    - name: Set up authorized keys for SSH access
+      authorized_key:
+        user: "{{ item.userid }}"
+        state: present
+        key: "{{ lookup('file', '/root/.ssh/id_ed25519.pub') }}"
+      loop: "{{ user_info }}" 

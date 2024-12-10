@@ -1,0 +1,12 @@
+---
+- name: Install PostgreSQL
+  apt:
+    name: 
+      - postgresql
+      - postgresql-contrib
+      - python3-psycopg2
+    state: present
+
+- name: Start PostgreSQL service
+  command: service postgresql start
+  ignore_errors: yes

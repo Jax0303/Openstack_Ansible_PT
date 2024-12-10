@@ -1,0 +1,8 @@
+---
+- name: Install monitoring tools
+  apt:
+    name:
+      - prometheus
+      - node-exporter
+      - grafana
+    state: present

@@ -1,0 +1,16 @@
+---
+- name: Set timezone
+  timezone:
+    name: Asia/Seoul
+
+- name: Install common packages
+  apt:
+    name:
+      - vim
+      - git
+      - curl
+      - htop
+      - net-tools
+      - tmux
+      - tree
+    state: present

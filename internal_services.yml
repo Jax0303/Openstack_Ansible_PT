@@ -1,0 +1,30 @@
+---
+- name: Setup Internal Services
+  hosts: all
+  become: yes
+
+  tasks:
+    # 내부 Wiki (DokuWiki)
+    - name: Install Apache and PHP
+      apt:
+        name:
+          - apache2
+          - php
+          - php-gd
+          - php-xml
+          - php-mbstring
+        state: present
+
+    # 파일 공유 서버 (Samba)
+    - name: Install Samba
+      apt:
+        name: samba
+        state: present
+
+    # 내부 Git 서버 (Gitea)
+    - name: Install Git server dependencies
+      apt:
+        name:
+          - git
+          - sqlite3
+        state: present 

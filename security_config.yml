@@ -1,0 +1,47 @@
+---
+- name: Configure system security
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Configure SSH security
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: "{{ item.regexp }}"
+        line: "{{ item.line }}"
+      loop:
+        - { regexp: '^PermitRootLogin', line: 'PermitRootLogin no' }
+        - { regexp: '^PasswordAuthentication', line: 'PasswordAuthentication no' }
+      notify: restart sshd
+
+    - name: Install security packages
+      apt:
+        name:
+          - fail2ban
+          - rsyslog
+        state: present
+
+    - name: Configure fail2ban
+      copy:
+        content: |
+          [sshd]
+          enabled = true
+          port = 2222
+          filter = sshd
+          logpath = /var/log/auth.log
+          maxretry = 3
+          bantime = 3600
+        dest: /etc/fail2ban/jail.d/ssh.conf
+
+    - name: Start rsyslog service
+      command: service rsyslog start
+      ignore_errors: yes
+
+    - name: Start fail2ban service
+      command: service fail2ban start
+      ignore_errors: yes
+
+  handlers:
+    - name: restart sshd
+      command: service sshd restart
+      ignore_errors: yes 

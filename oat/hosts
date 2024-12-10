@@ -1,0 +1,24 @@
+# 단일 서버 정의
+web1.example.com
+
+# 그룹 정의
+[webservers]
+web1.example.com
+web2.example.com
+web3.example.com ansible_host=192.168.1.23
+
+# 여러 서버를 패턴으로 정의
+[databases]
+db[01:03].example.com
+db-[a:c].example.com
+
+# 그룹의 그룹 정의
+[seoul:children]
+webservers
+databases
+
+# 변수 정의
+[webservers:vars]
+http_port=80
+ansible_ssh_user=ubuntu
+ansible_ssh_private_key_file=/path/to/key.pem 

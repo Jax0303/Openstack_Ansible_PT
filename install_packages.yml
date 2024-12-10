@@ -1,0 +1,38 @@
+---
+- name: Install basic software packages
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Install common packages
+      apt:
+        name:
+          - vim
+          - git
+          - curl
+          - htop
+          - net-tools
+          - tmux
+          - tree
+        state: present
+
+    - name: Install development tools
+      apt:
+        name:
+          - build-essential
+          - python3-pip
+          - python3-dev
+        state: present
+
+    - name: Install monitoring tools
+      apt:
+        name:
+          - iotop
+          - iftop
+          - nmon
+        state: present 

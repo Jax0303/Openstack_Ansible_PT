@@ -1,0 +1,22 @@
+---
+- name: Configure sudo access
+  hosts: all
+  become: yes
+  vars_files:
+    - vars/secret.yml
+
+  tasks:
+    - name: Add users to sudo group
+      user:
+        name: "{{ item.userid }}"
+        groups: sudo
+        append: yes
+      loop: "{{ user_info }}"
+
+    - name: Ensure sudo group has passwordless sudo
+      lineinfile:
+        path: /etc/sudoers
+        state: present
+        regexp: '^%sudo'
+        line: '%sudo ALL=(ALL:ALL) NOPASSWD:ALL'
+        validate: '/usr/sbin/visudo -cf %s'
