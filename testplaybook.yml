@@ -1,7 +1,0 @@
----
-- hosts: all
-  vars_files:
-    - vars/secret.yml
-  tasks:
-    - name: Some task
-      # user_info 변수 사용 가능 
